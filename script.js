@@ -1,8 +1,8 @@
 function getUserChoice() {
     let userSelection = "";
-    while (!["Rock", "Paper", "Scissor"].includes(userSelection)) {
+    do {
         userSelection = prompt("Enter rock, paper, or scissor.", getComputerChoice());
-    }
+    } while (!["Rock", "Paper", "Scissor"].includes(userSelection))
     return userSelection;
 }
 
