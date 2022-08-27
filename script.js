@@ -1,4 +1,3 @@
-
 function playRound(playerSelection, computerSelection) {
 
     //            rock paper scissor
