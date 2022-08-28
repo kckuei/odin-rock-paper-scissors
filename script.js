@@ -1,10 +1,10 @@
-function getUserChoice() {
-    let userSelection = "";
-    do {
-        userSelection = prompt("Enter rock, paper, or scissor.", getComputerChoice());
-    } while (!["Rock", "Paper", "Scissor"].includes(userSelection))
-    return userSelection;
-}
+// function getUserChoice() {
+//     let userSelection = "";
+//     do {
+//         userSelection = prompt("Enter rock, paper, or scissor.", getComputerChoice());
+//     } while (!["Rock", "Paper", "Scissor"].includes(userSelection))
+//     return userSelection;
+// }
 
 
 function getComputerChoice() {
@@ -62,41 +62,41 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game(numRounds) {
+// function game(numRounds) {
 
-    let userWins = 0;
-    let computerWins = 0;
-    let ties = 0;
+//     let userWins = 0;
+//     let computerWins = 0;
+//     let ties = 0;
 
-    for (let i = 0; i < numRounds; i++) {
-        let userSelection = getUserChoice()
-        let computerSelection = getComputerChoice();
-        let result = playRound(userSelection, computerSelection);
+//     for (let i = 0; i < numRounds; i++) {
+//         let userSelection = getUserChoice()
+//         let computerSelection = getComputerChoice();
+//         let result = playRound(userSelection, computerSelection);
 
-        console.log(`Round ${i + 1}:`)
-        console.log(result);
+//         console.log(`Round ${i + 1}:`)
+//         console.log(result);
 
-        if (result.toLowerCase().includes("win")) {
-            userWins += 1;
-        } else if (result.toLowerCase().includes("lose")) {
-            computerWins += 1;
-        } else {
-            ties += 1;
-        }
-    }
+//         if (result.toLowerCase().includes("win")) {
+//             userWins += 1;
+//         } else if (result.toLowerCase().includes("lose")) {
+//             computerWins += 1;
+//         } else {
+//             ties += 1;
+//         }
+//     }
 
-    reportWinner(userWins, computerWins, ties, numRounds);
-}
+//     reportWinner(userWins, computerWins, ties, numRounds);
+// }
 
-function reportWinner(userWins, computerWins, ties, numRounds) {
-    if (userWins > computerWins) {
-        console.log(`User Wins Game! User Won ${userWins} Out of ${numRounds} Rounds! Number of Ties = ${ties}`);
-    } else if (computerWins > userWins) {
-        console.log(`User Lost Game! User Won ${userWins} Out of ${numRounds} Rounds! Number of Ties = ${ties}`);
-    } else {
-        console.log('It\'s a Tie!');
-    }
-}
+// function reportWinner(userWins, computerWins, ties, numRounds) {
+//     if (userWins > computerWins) {
+//         console.log(`User Wins Game! User Won ${userWins} Out of ${numRounds} Rounds! Number of Ties = ${ties}`);
+//     } else if (computerWins > userWins) {
+//         console.log(`User Lost Game! User Won ${userWins} Out of ${numRounds} Rounds! Number of Ties = ${ties}`);
+//     } else {
+//         console.log('It\'s a Tie!');
+//     }
+// }
 
 
 game(5);
