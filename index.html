@@ -15,10 +15,11 @@
         <div class="middle">
             <div class="messageboard">Displays some text</div>
             <div class="scoreboard">
-                <div>Scoreboard</div>
+                <div class="user-tally"></div>
+                <div class="computer-tally"></div>
                 <div class="score-container">
                     <div class="user-score">0</div>
-                    <div class="computer-score">0</div>
+                    <div class="computer-score push-right">0</div>
                 </div>
             </div>
         </div>
@@ -32,6 +33,68 @@
 </body>
 
 <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero,
+    .container {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .hero {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero>div {
+        flex: 1;
+    }
+
+    .left,
+    .right {
+        height: 200px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .user-tally,
+    .computer-tally {
+        height: 30px;
+    }
+
+    .score-container {
+        display: flex;
+    }
+
+    .push-right {
+        margin-left: auto;
+    }
+
+    .button {
+        height: 150px;
+        width: 150px;
+        margin: 30px 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     * {
         border: solid 1px red;
     }
