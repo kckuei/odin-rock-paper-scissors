@@ -46,6 +46,9 @@ function updateTallies(e) {
     if (roundNumber === 5) {
         buttons.forEach(button => button.removeEventListener('click', addTransition));
         buttons.forEach(button => button.removeEventListener('click', updateTallies));
+        buttons.forEach(button => {
+            button.classList.add('button-gameover');
+        })
     }
 }
 
@@ -67,6 +70,9 @@ function startNewGame() {
 
     buttons.forEach(button => button.addEventListener('click', addTransition));
     buttons.forEach(button => button.addEventListener('click', updateTallies));
+    buttons.forEach(button => {
+        button.classList.remove('button-gameover');
+    })
 }
 
 function parseUserChoice(e) {
