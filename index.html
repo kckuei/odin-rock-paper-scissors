@@ -12,7 +12,7 @@
 <body>
     <div class="header">
         <div class="logo">Rock &#60 Paper &#60 Scissors</div>
-        <input type="button" value="New Game" />
+        <input class='new-game' type="button" value="New Game" />
     </div>
     <div class="hero">
         <div class="left">
@@ -20,9 +20,10 @@
             <div class="user-score">0</div>
         </div>
         <div class="middle">
+            <div class="round"></div>
             <div class="text-box">Choose your weapon!</div>
             <div class="user-tally"></div>
-            <div class="computer-tally"></div>
+            <div class="comp-tally"></div>
         </div>
         <div class="right">
             <div>Computer Score</div>
@@ -94,11 +95,23 @@
         flex-wrap: wrap;
     }
 
-    .user-tally,
-    .computer-tally {
-        height: 30px;
+    .round {
+        height: 3rem;
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+
+    .user-tally,
+    .comp-tally {
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .user-tally {
+        margin-bottom: 1rem;
     }
 
     .score-container {
@@ -123,6 +136,13 @@
         box-shadow: 0 0 1rem #ffc600;
     }
 
+    .icon {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 0.5rem;
+        border: 0.25rem solid lightslategray;
+    }
+
     button>img {
         height: 15rem;
         width: 15rem;
@@ -138,6 +158,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
     }
 
     .header {

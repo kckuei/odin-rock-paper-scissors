@@ -1,91 +1,101 @@
 function getComputerChoice() {
-    const choices = ["Rock", "Paper", "Scissors"];
-    randomInt = getRandomRangeInt(1, choices.length);
-    return choices[randomInt - 1];
+    randomInt = getRandomRangeInt(1, CHOICES.length);
+    return CHOICES[randomInt - 1];
 }
 
 function getRandomRangeInt(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
-function parseInput(string) {
-    string = string.toLowerCase();
-    return string[0].toUpperCase() + string.slice(1);
+function parseInput(choice) {
+    return choice[0].toUpperCase() + choice.slice(1,)
 }
 
 function playRound(playerSelection, computerSelection) {
 
-    playerSelection = parseInput(playerSelection);
-    computerSelection = parseInput(computerSelection);
-
-    let matrix = {
-        'Rock': {
-            'Rock': 'tie',
-            'Paper': 'lose',
-            'Scissor': 'win'
-        },
-        'Paper': {
-            'Rock': 'win',
-            'Paper': 'tie',
-            'Scissor': 'lose'
-        },
-        'Scissors': {
-            'Rock': 'lose',
-            'Paper': 'win',
-            'Scissor': 'tie'
-        },
-    };
-
-    if (matrix[playerSelection][computerSelection] === 'win') {
-        return `You Win!  ${playerSelection} beats ${computerSelection}`;
-    } else if (matrix[playerSelection][computerSelection] === 'lose') {
-        return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    if (MATRIX[playerSelection][computerSelection] === 'win') {
+        userScore.innerText = parseInt(userScore.innerText) + 1;
+        let preText = `${parseInput(playerSelection)} beats ${parseInput(computerSelection)}!`;
+        return `${preText} You Win!`;
+    } else if (MATRIX[playerSelection][computerSelection] === 'lose') {
+        compScore.innerText = parseInt(compScore.innerText) + 1;
+        let preText = `${parseInput(computerSelection)} beats ${parseInput(playerSelection)}!`;
+        return `${preText} You Lose!`;
     } else {
         return 'Tie!';
     }
 }
 
-// function game(numRounds) {
+function updateTallies(e) {
+    // gets choices
+    const userChoice = parseUserChoice(e);
+    const compChoice = getComputerChoice();
 
-//     let userWins = 0;
-//     let computerWins = 0;
-//     let ties = 0;
+    // updates the tallies
+    addIconToParentTally(userChoice, userTally);
+    addIconToParentTally(compChoice, compTally);
 
-//     for (let i = 0; i < numRounds; i++) {
-//         let userSelection = getUserChoice()
-//         let computerSelection = getComputerChoice();
-//         let result = playRound(userSelection, computerSelection);
+    // updates round
+    roundNumber += 1;
+    round.innerText = `Round ${roundNumber}`;
 
-//         console.log(`Round ${i + 1}:`)
-//         console.log(result);
+    // updates dash
+    textBox.innerText = playRound(userChoice, compChoice);
 
-//         if (result.toLowerCase().includes("win")) {
-//             userWins += 1;
-//         } else if (result.toLowerCase().includes("lose")) {
-//             computerWins += 1;
-//         } else {
-//             ties += 1;
-//         }
-//     }
-// }
+    // check for win condition
+    if (roundNumber === 5) {
+        buttons.forEach(button => button.removeEventListener('click', addTransition));
+        buttons.forEach(button => button.removeEventListener('click', updateTallies));
+    }
+}
 
+function startNewGame() {
+    // resets game state
 
-// for (const button of [rock, paper, scissor]) {
-//     button.addEventListener('click', (e) => {
-//         const path = e.path[0].className;
-//         console.log(path)
+    roundNumber = 0;
+    userWins = 0;
+    compWins = 0;
 
-//         if (path.includes('rock')) {
-//             userTally.innerText += 'R';
-//         } else if (path.includes('paper')) {
-//             userTally.innerText += 'P';
-//         } else if (path.includes('scissor')) {
-//             userTally.innerText += 'S';
-//         }
+    userScore.innerText = 0;
+    compScore.innerText = 0;
 
-//         e.target.classList.add('selected')
-//     })
-// }
+    round.innerText = '';
+    textBox.innerText = 'Choose your weapon!';
+
+    Array.from(userTally.children).forEach(node => node.remove());
+    Array.from(compTally.children).forEach(node => node.remove());
+
+    buttons.forEach(button => button.addEventListener('click', addTransition));
+    buttons.forEach(button => button.addEventListener('click', updateTallies));
+}
+
+function parseUserChoice(e) {
+    // e.path[0] gets the img
+    const sourceClass = e.path[0].className;
+    if (sourceClass.includes('rock')) {
+        return 'rock';
+    } else if (sourceClass.includes('paper')) {
+        return 'paper';
+    } else if (sourceClass.includes('scissor')) {
+        return 'scissor';
+    }
+}
+
+function addIconToParentTally(sourceClass, parent) {
+
+    let child = document.createElement('img');
+    child.classList.add('icon');
+
+    if (sourceClass.includes('rock')) {
+        child.src = './rock.png';
+    } else if (sourceClass.includes('paper')) {
+        child.src = './paper.png';
+    } else if (sourceClass.includes('scissor')) {
+        child.src = './scissor.png';
+    }
+    parent.appendChild(child)
+}
+
 
 function flipLogo(e) {
     if (e.target.innerText[0] === 'S') {
@@ -98,12 +108,48 @@ function flipLogo(e) {
 function addTransition(e) {
     e.target.classList.add('selected')
     setTimeout(() => {
-        e.target.classList.remove('selected')
+        e.target.classList.remove('selected');
     }, 100)
 }
 
+
+let roundNumber = 0;
+let userWins = 0;
+let compWins = 0;
+const CHOICES = ["rock", "paper", "scissor"];
+const MATRIX = {
+    'rock': {
+        'rock': 'tie',
+        'paper': 'lose',
+        'scissor': 'win'
+    },
+    'paper': {
+        'rock': 'win',
+        'paper': 'tie',
+        'scissor': 'lose'
+    },
+    'scissor': {
+        'rock': 'lose',
+        'paper': 'win',
+        'scissor': 'tie'
+    },
+};
+
+const round = document.querySelector('.round');
+const userScore = document.querySelector('.user-score');
+const compScore = document.querySelector('.comp-score');
+const textBox = document.querySelector('.text-box');
+const userTally = document.querySelector('.user-tally');
+const compTally = document.querySelector('.comp-tally');
+
+const newGame = document.querySelector('.new-game');
+newGame.addEventListener('click', startNewGame);
+
 const buttons = Array.from(document.querySelectorAll('.container > .button'));
 buttons.forEach(button => button.addEventListener('click', addTransition));
+buttons.forEach(button => button.addEventListener('click', updateTallies));
 
 const logo = document.querySelector('.logo');
-logo.addEventListener('click', flipLogo)
+logo.addEventListener('click', flipLogo);
+
+
