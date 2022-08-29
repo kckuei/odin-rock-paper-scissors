@@ -15,10 +15,12 @@ function playRound(playerSelection, computerSelection) {
 
     if (MATRIX[playerSelection][computerSelection] === 'win') {
         userScore.innerText = parseInt(userScore.innerText) + 1;
+        userWins = parseInt(userScore.innerText);
         let preText = `${parseInput(playerSelection)} beats ${parseInput(computerSelection)}!`;
         return `${preText} You Win!`;
     } else if (MATRIX[playerSelection][computerSelection] === 'lose') {
         compScore.innerText = parseInt(compScore.innerText) + 1;
+        compWins = parseInt(compScore.innerText);
         let preText = `${parseInput(computerSelection)} beats ${parseInput(playerSelection)}!`;
         return `${preText} You Lose!`;
     } else {
@@ -42,13 +44,20 @@ function updateTallies(e) {
     // updates dash
     textBox.innerText = playRound(userChoice, compChoice);
 
-    // check for win condition
+    // check for end condition
     if (roundNumber === 5) {
         buttons.forEach(button => button.removeEventListener('click', addTransition));
         buttons.forEach(button => button.removeEventListener('click', updateTallies));
         buttons.forEach(button => {
             button.classList.add('button-gameover');
         })
+        if (userWins > compWins) {
+            gameOver.innerText = 'You won the best of 5!';
+        } else if (compWins > userWins) {
+            gameOver.innerText = 'Computer won best of 5!\n Better luck next time!';
+        } else {
+            gameOver.innerText = 'Draw! Try a new game!';
+        }
     }
 }
 
@@ -73,6 +82,7 @@ function startNewGame() {
     buttons.forEach(button => {
         button.classList.remove('button-gameover');
     })
+    gameOver.innerText = '';
 }
 
 function parseUserChoice(e) {
@@ -147,11 +157,12 @@ const compScore = document.querySelector('.comp-score');
 const textBox = document.querySelector('.text-box');
 const userTally = document.querySelector('.user-tally');
 const compTally = document.querySelector('.comp-tally');
+const gameOver = document.querySelector('.text-gameover');
 
 const newGame = document.querySelector('.new-game');
 newGame.addEventListener('click', startNewGame);
 
-const buttons = Array.from(document.querySelectorAll('.container > .button'));
+const buttons = Array.from(document.querySelectorAll('.container .button'));
 buttons.forEach(button => button.addEventListener('click', addTransition));
 buttons.forEach(button => button.addEventListener('click', updateTallies));
 

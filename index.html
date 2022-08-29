@@ -30,6 +30,9 @@
             <div class="comp-score">0</div>
         </div>
     </div>
+    <div class="gameover">
+        <div class="text-gameover"></div>
+    </div>
     <div class="container">
         <input class="button rock" type="image" src="./rock.png" alt="rock">
         <input class="button paper" type="image" src="./paper.png" alt="paper">
@@ -131,7 +134,7 @@
     }
 
     .button-gameover {
-        opacity: 0.5;
+        opacity: 0.3;
     }
 
     .selected {
@@ -192,6 +195,19 @@
         height: 5rem;
         width: auto;
         margin: 1rem 0rem;
+    }
+
+    .gameover {
+        position: relative;
+    }
+
+    .text-gameover {
+        position: absolute;
+        text-align: center;
+        left: -7.5em;
+        bottom: -4em;
+        width: 15em;
+        font-size: 3em;
     }
 
     /* * {
