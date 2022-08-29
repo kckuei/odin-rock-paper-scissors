@@ -10,26 +10,31 @@
 </head>
 
 <body>
+    <div class="header">
+        <div class="logo">Rock &#60 Paper &#60 Scissors</div>
+        <input type="button" value="New Game" />
+    </div>
     <div class="hero">
-        <div class="left">Portrait 1</div>
-        <div class="middle">
-            <div class="message">Displays some text</div>
-            <div class="scoreboard">
-                <div class="user-tally"></div>
-                <div class="computer-tally"></div>
-                <div class="score-container">
-                    <div class="user-score">0</div>
-                    <div class="computer-score push-right">0</div>
-                </div>
-            </div>
+        <div class="left">
+            <div>Player Score</div>
+            <div class="user-score">0</div>
         </div>
-        <div class="right">Portrait 2</div>
+        <div class="middle">
+            <div class="text-box">Choose your weapon!</div>
+            <div class="user-tally"></div>
+            <div class="computer-tally"></div>
+        </div>
+        <div class="right">
+            <div>Computer Score</div>
+            <div class="comp-score">0</div>
+        </div>
     </div>
     <div class="container">
-        <div class="button rock">Rock</div>
-        <div class="button paper">Paper</div>
-        <div class="button scissor">Scissor</div>
+        <input class="button rock" type="image" src="./rock.png" alt="rock">
+        <input class="button paper" type="image" src="./paper.png" alt="paper">
+        <input class="button scissor" type="image" src="./scissor.png" alt="scissor">
     </div>
+    <div class="footer"><img src="small-odin.svg"><span>The Odin Project</span></div>
 </body>
 
 <style>
@@ -38,6 +43,7 @@
         margin: 0;
         padding: 0;
         font-family: sans-serif;
+        min-height: 100vh;
     }
 
     body {
@@ -46,15 +52,18 @@
         align-items: center;
     }
 
+    .header,
     .hero,
-    .container {
+    .container,
+    .footer {
         width: 100%;
-        max-width: 800px;
+        max-width: 60rem;
     }
 
     .hero {
         display: flex;
         justify-content: center;
+        font-size: 2rem;
     }
 
     .hero>div {
@@ -63,10 +72,20 @@
 
     .left,
     .right {
-        height: 200px;
+        height: 18rem;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        font-size: 2rem;
+    }
+
+    .left>div:first-child {
+        margin-bottom: 1rem;
+    }
+
+    .right>div:first-child {
+        margin-bottom: 1rem;
     }
 
     .container {
@@ -78,24 +97,28 @@
     .user-tally,
     .computer-tally {
         height: 30px;
+        display: flex;
+        justify-content: center;
     }
 
     .score-container {
         display: flex;
     }
 
-    .push-right {
-        margin-left: auto;
-    }
-
     .button {
-        height: 150px;
-        width: 150px;
-        margin: 30px 50px;
-        border-radius: 10px;
+        height: 15rem;
+        width: 15rem;
+        margin: 2rem 2rem;
+        border-radius: 2rem;
         display: flex;
         align-items: center;
         justify-content: center;
+        border: 0.25rem solid black;
+    }
+
+    button>img {
+        height: 15rem;
+        width: 15rem;
     }
 
     .middle {
@@ -103,18 +126,45 @@
         flex-direction: column;
     }
 
-    .message {
+    .text-box {
         margin: auto;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    * {
-        border: solid 1px red;
+    .header {
+        display: flex;
+        font-size: 1.5rem;
     }
+
+    .logo,
+    input {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    input {
+        margin-left: auto;
+        font-size: 1rem;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .footer>img {
+        height: 5rem;
+        width: auto;
+        margin: 1rem 0rem;
+    }
+
+    /* * {
+        border: solid 1px red;
+    } */
 </style>
-
-
 
 </html>

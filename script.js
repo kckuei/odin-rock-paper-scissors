@@ -1,40 +1,23 @@
-// function getUserChoice() {
-//     let userSelection = "";
-//     do {
-//         userSelection = prompt("Enter rock, paper, or scissor.", getComputerChoice());
-//     } while (!["Rock", "Paper", "Scissor"].includes(userSelection))
-//     return userSelection;
-// }
-
-
 function getComputerChoice() {
     const choices = ["Rock", "Paper", "Scissors"];
     randomInt = getRandomRangeInt(1, choices.length);
     return choices[randomInt - 1];
 }
 
-
 function getRandomRangeInt(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
-
 
 function parseInput(string) {
     string = string.toLowerCase();
     return string[0].toUpperCase() + string.slice(1);
 }
 
-
 function playRound(playerSelection, computerSelection) {
 
     playerSelection = parseInput(playerSelection);
     computerSelection = parseInput(computerSelection);
 
-    // decision matrix
-    //            rock paper scissors
-    // rock       tie  lose  win
-    // paper      win  tie   lose
-    // scissors   lose  win  tie
     let matrix = {
         'Rock': {
             'Rock': 'tie',
@@ -84,19 +67,40 @@ function playRound(playerSelection, computerSelection) {
 //             ties += 1;
 //         }
 //     }
-
-//     reportWinner(userWins, computerWins, ties, numRounds);
-// }
-
-// function reportWinner(userWins, computerWins, ties, numRounds) {
-//     if (userWins > computerWins) {
-//         console.log(`User Wins Game! User Won ${userWins} Out of ${numRounds} Rounds! Number of Ties = ${ties}`);
-//     } else if (computerWins > userWins) {
-//         console.log(`User Lost Game! User Won ${userWins} Out of ${numRounds} Rounds! Number of Ties = ${ties}`);
-//     } else {
-//         console.log('It\'s a Tie!');
-//     }
 // }
 
 
-game(5);
+
+const buttons = Array.from(document.querySelectorAll('.button'));
+
+
+const rock = document.querySelector('.rock');
+const paper = document.querySelector('.paper');
+const scissor = document.querySelector('.scissor');
+
+const userTally = document.querySelector('.user-tally');
+const compTally = document.querySelector('.computer-tally');
+
+buttons.forEach(button => button.addEventListener('click', removeTransition));
+
+for (const button of [rock, paper, scissor]) {
+    button.addEventListener('click', (e) => {
+        const path = e.path[0].className;
+        console.log(path)
+
+        if (path.includes('rock')) {
+            userTally.innerText += 'R';
+        } else if (path.includes('paper')) {
+            userTally.innerText += 'P';
+        } else if (path.includes('scissor')) {
+            userTally.innerText += 'S';
+        }
+
+        e.target.classList.add('selected')
+    })
+}
+
+function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('selected');
+}
