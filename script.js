@@ -103,11 +103,11 @@ function addIconToParentTally(sourceClass, parent) {
     child.classList.add('icon');
 
     if (sourceClass.includes('rock')) {
-        child.src = './rock.png';
+        child.src = './images/rock.png';
     } else if (sourceClass.includes('paper')) {
-        child.src = './paper.png';
+        child.src = './images/paper.png';
     } else if (sourceClass.includes('scissor')) {
-        child.src = './scissor.png';
+        child.src = './images/scissor.png';
     }
     parent.appendChild(child)
 }
