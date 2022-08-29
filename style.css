@@ -166,6 +166,14 @@ input {
     font-size: 3em;
 }
 
+.odin {
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
+}
+
+.odin:hover {
+    transform: rotate(720deg);
+}
+
 /* * {
     border: solid 1px red;
 } */
