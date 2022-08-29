@@ -70,37 +70,40 @@ function playRound(playerSelection, computerSelection) {
 // }
 
 
+// for (const button of [rock, paper, scissor]) {
+//     button.addEventListener('click', (e) => {
+//         const path = e.path[0].className;
+//         console.log(path)
 
-const buttons = Array.from(document.querySelectorAll('.button'));
+//         if (path.includes('rock')) {
+//             userTally.innerText += 'R';
+//         } else if (path.includes('paper')) {
+//             userTally.innerText += 'P';
+//         } else if (path.includes('scissor')) {
+//             userTally.innerText += 'S';
+//         }
 
+//         e.target.classList.add('selected')
+//     })
+// }
 
-const rock = document.querySelector('.rock');
-const paper = document.querySelector('.paper');
-const scissor = document.querySelector('.scissor');
-
-const userTally = document.querySelector('.user-tally');
-const compTally = document.querySelector('.computer-tally');
-
-buttons.forEach(button => button.addEventListener('click', removeTransition));
-
-for (const button of [rock, paper, scissor]) {
-    button.addEventListener('click', (e) => {
-        const path = e.path[0].className;
-        console.log(path)
-
-        if (path.includes('rock')) {
-            userTally.innerText += 'R';
-        } else if (path.includes('paper')) {
-            userTally.innerText += 'P';
-        } else if (path.includes('scissor')) {
-            userTally.innerText += 'S';
-        }
-
-        e.target.classList.add('selected')
-    })
+function flipLogo(e) {
+    if (e.target.innerText[0] === 'S') {
+        e.target.innerText = 'Rock < Paper < Scissors';
+    } else {
+        e.target.innerText = 'Scissors > Paper > Rock';
+    }
 }
 
-function removeTransition(e) {
-    if (e.propertyName !== 'transform') return;
-    e.target.classList.remove('selected');
+function addTransition(e) {
+    e.target.classList.add('selected')
+    setTimeout(() => {
+        e.target.classList.remove('selected')
+    }, 100)
 }
+
+const buttons = Array.from(document.querySelectorAll('.container > .button'));
+buttons.forEach(button => button.addEventListener('click', addTransition));
+
+const logo = document.querySelector('.logo');
+logo.addEventListener('click', flipLogo)
